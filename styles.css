@@ -721,3 +721,34 @@ body {
         display: flex !important; /* Pastikan visible di desktop */
     }
 }
+/* Smooth scrolling untuk anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Active link styling */
+.nav-link.active {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Highlight current section in view */
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ffcc00;
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
