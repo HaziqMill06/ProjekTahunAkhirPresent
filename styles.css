@@ -600,4 +600,124 @@ body {
     .placeholder-icon {
         font-size: 3rem;
     }
+
+}
+
+/* =========================================
+   MOBILE NAVIGATION (HAMBURGER MENU)
+   ========================================= */
+
+/* Hide regular nav on mobile */
+@media (max-width: 768px) {
+    nav ul {
+        display: none; /* Sembunyikan menu biasa */
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        padding: 20px;
+        z-index: 1000;
+        border-top: 2px solid #0099cc;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    nav ul.show {
+        display: flex; /* Tunjukkan bila ada class 'show' */
+    }
+    
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 15px;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s;
+    }
+    
+    nav ul li a:hover {
+        background: rgba(0, 153, 204, 0.2);
+        color: #ffcc00;
+        padding-left: 25px;
+    }
+    
+    /* Hamburger Menu Button */
+    .hamburger {
+        display: block;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 5px;
+        z-index: 1001;
+        position: relative;
+    }
+    
+    /* Animated hamburger icon */
+    .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+    }
+    
+    /* Hamburger animation when active */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Header mobile style */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        position: relative;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+}
+
+/* Desktop - hide hamburger */
+@media (min-width: 769px) {
+    .hamburger {
+        display: none;
+    }
+    
+    nav ul {
+        display: flex !important; /* Pastikan visible di desktop */
+    }
 }
