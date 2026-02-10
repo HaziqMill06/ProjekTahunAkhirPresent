@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projek Akhir Tahun</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Projek Akhir Tahun</div>
+        <nav>
+            <ul>
+                <li><a href="#team">team</a></li>
+                <li><a href="#ui-sistem">GambarUISistem</a></li>
+                <li><a href="#projek">GambarProjek</a></li>
+                <li><a href="#lain">Lain-Lain</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="main-title">Sistem Digital Aktiviti E-KokuPro KVSP1</h1>
+
+        <section id="team" class="container visible">
+            <h2>TEAM</h2>
+            <div class="team-wrapper">
+                <div class="team-member leader">
+                    <div class="circle">
+                        <img src="images/beya.jpg" alt="Pensyarah" class="img-fit">
+                    </div>
+                    <p>NAZATUL BAHIYAH BINTI OTHMAN</p>
+                    <p>PENSYARAH</p>
+                </div>
+                
+                <div class="team-group">
+                    <div class="team-member">
+                        <div class="circle">
+                            <img src="images/syamil.jpg" alt="Pelajar 1" class="img-fit">
+                        </div>
+                        <p>MUHAMAD HAZIQ SYAMIL BIN MUHAMAD HAFIDZ</p>
+                        <p>PELAJAR</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="circle">
+                            <img src="images/aieman.jpg" alt="Pelajar 2" class="img-fit">
+                        </div>
+                        <p>MUHAMMAD AIEMAN BIN SHUIB</p>
+                        <p>PELAJAR</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="ui-sistem" class="container visible">
+            <h2>Gambar UI Sistem</h2>
+            <div class="slider-container">
+                <button class="arrow" id="prev">&#10094;</button>
+                <div class="slider-box">
+                    <img id="mainSlider" src="images/ui1.png" alt="UI Sistem" class="img-fit-contain">
+                </div>
+                <button class="arrow" id="next">&#10095;</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="projek" class="container visible">
+            <h2>Gambar Semasa Projek digunakan</h2>
+            <div class="gallery-grid">
+                <div class="rect-box">
+                    <img src="images/projek1.jpg" class="img-fit">
+                </div>
+                <div class="rect-box">
+                    <img src="images/projek2.jpg" class="img-fit">
+                </div>
+                <div class="rect-box">
+                    <img src="images/projek3.jpg" class="img-fit">
+                </div>
+                <div class="rect-box">
+                    <img src="images/projek4.jpg" class="img-fit">
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="lain" class="container visible">
+            <h2>Lain - Lain</h2>
+            <div class="button-group">
+                <button class="long-btn" id="systemBtn">Sistem E-KokuPro</button>
+                <button class="long-btn" id="videoBtn">🎬 Video Semasa Sistem Digunakan</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- VIDEO MODAL (POPUP) -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>🎥 Demo Sistem E-KokuPro</h3>
+            
+            <div class="video-container">
+                <!-- VIDEO DRIVE LINK TELAH DIGANTI -->
+                <iframe 
+                    src="https://drive.google.com/file/d/1QifoN7YPLOiTOzmQ-qAFpwKlr9thqKqB/preview" 
+                    allow="autoplay; fullscreen" 
+                    frameborder="0">
+                </iframe>
+            </div>
+            
+            <p class="video-description">
+                Demonstrasi penggunaan Sistem Digital Aktiviti E-KokuPro KVSP1
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
