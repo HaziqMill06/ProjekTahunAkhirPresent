@@ -297,9 +297,89 @@ function typingEffect() {
 }
 
 // =========================================
-// INITIALIZE EVERYTHING
+// MOBILE NAVIGATION FUNCTIONS
 // =========================================
 
+function setupMobileNavigation() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (!hamburgerBtn) return;
+    
+    // Toggle menu when hamburger clicked
+    hamburgerBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+        hamburgerBtn.classList.toggle('active');
+        
+        // Particle effect for fun
+        createParticles(e, this);
+    });
+    
+    // Close menu when clicking a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+            
+            // Smooth scroll to section
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    // Close menu on scroll (optional)
+    window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    // Add touch/swipe to close menu (mobile only)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    navMenu.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+    });
+    
+    navMenu.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        // Swipe right to close
+        if (touchEndX - touchStartX > 100) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+}
+
+// Update the initialization function
 window.addEventListener('load', function() {
     console.log('🚀 E-KokuPro System Ready!');
     
@@ -308,6 +388,7 @@ window.addEventListener('load', function() {
     
     // Setup semua fungsi
     setupVideoModal();
+    setupMobileNavigation(); // ← TAMBAH INI
     typingEffect();
     createFloatingParticles();
     
