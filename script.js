@@ -312,3 +312,169 @@ function animateParticle(particle) {
     particle.animate([
         { transform: 'translate(0, 0)' },
         { transform: `translate(${Math.sin(Date.now() * 0.001) * 50}px, ${Math.cos(Date.now() * 0.001) * 50}px)` }
+    ], {
+        duration: 5000 + Math.random() * 10000,
+        direction: 'alternate',
+        iterations: Infinity,
+        easing: 'ease-in-out'
+    });
+}
+
+// Typing Effect
+function typingEffect() {
+    const title = document.querySelector('.main-title');
+    if (!title) return;
+    
+    const originalText = title.textContent;
+    title.textContent = '';
+    
+    let i = 0;
+    const typing = setInterval(() => {
+        if (i < originalText.length) {
+            title.textContent += originalText.charAt(i);
+            i++;
+            
+            if (i < originalText.length) {
+                title.style.borderRight = '2px solid #ffcc00';
+            } else {
+                title.style.borderRight = 'none';
+                clearInterval(typing);
+                
+                title.style.textShadow = '0 0 20px rgba(255, 204, 0, 0.8)';
+                setTimeout(() => {
+                    title.style.textShadow = '2px 2px 15px rgba(0, 153, 204, 0.8)';
+                }, 1000);
+            }
+        }
+    }, 50);
+}
+
+// =========================================
+// MOBILE NAVIGATION FUNCTIONS
+// =========================================
+
+function setupMobileNavigation() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    if (!hamburgerBtn) return;
+    
+    hamburgerBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('show');
+        hamburgerBtn.classList.toggle('active');
+        createParticles(e, this);
+    });
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+            
+            const targetId = this.getAttribute('href');
+            if (targetId.startsWith('#')) {
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    window.addEventListener('scroll', function() {
+        if (window.innerWidth <= 768) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+    
+    let touchStartX = 0;
+    navMenu.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].clientX;
+    });
+    
+    navMenu.addEventListener('touchend', function(e) {
+        const touchEndX = e.changedTouches[0].clientX;
+        if (touchEndX - touchStartX > 100) {
+            navMenu.classList.remove('show');
+            hamburgerBtn.classList.remove('active');
+        }
+    });
+}
+
+// Active Section Highlight
+function setupActiveSection() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', function() {
+        let current = '';
+        const scrollPosition = window.scrollY;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// =========================================
+// INITIALIZE EVERYTHING
+// =========================================
+
+window.addEventListener('load', function() {
+    console.log('🚀 E-KokuPro System Ready!');
+    
+    // Load first image
+    kemaskiniGambar();
+    
+    // Setup all functions
+    setupVideoModal();
+    setupPDFModals();
+    setupMobileNavigation();
+    setupActiveSection();
+    typingEffect();
+    createFloatingParticles();
+    
+    // Auto slide every 8 seconds
+    setInterval(() => {
+        document.getElementById('next').click();
+    }, 8000);
+    
+    console.log('🎮 Features Available:');
+    console.log('   ← → : Navigate slider');
+    console.log('   Escape : Close modals');
+    console.log('   📘📙 : PDF Manuals');
+    console.log('   Touch/Swipe : Mobile navigation');
+});
+
+console.log('✨ Sistem siap! Jangan lupa upload PDF manual pengguna ke folder yang sama.');
