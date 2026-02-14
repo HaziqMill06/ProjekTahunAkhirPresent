@@ -72,15 +72,19 @@ document.getElementById('prev').addEventListener('click', () => {
 // VIDEO MODAL FUNCTIONS
 // =========================================
 
+// Function untuk tutup video modal
 function closeVideoModal() {
     const videoModal = document.getElementById('videoModal');
     videoModal.style.display = 'none';
     document.body.style.overflow = 'auto';
     
     const video = videoModal.querySelector('video');
-    if (video) video.pause();
+    if (video) {
+        video.pause();
+    }
 }
 
+// Setup Video Modal
 function setupVideoModal() {
     const videoBtn = document.getElementById('videoBtn');
     const systemBtn = document.getElementById('systemBtn');
@@ -92,20 +96,25 @@ function setupVideoModal() {
         return;
     }
     
+    // Update button texts
     if (videoBtn) {
-        videoBtn.innerHTML = '🎬 Video Demo Sistem';
+        videoBtn.innerHTML = '🎬 Video Semasa Sistem Digunakan';
     }
     
     if (systemBtn) {
         systemBtn.innerHTML = '🌐 Sistem E-KokuPro';
     }
     
+    // Open video modal
     videoBtn.addEventListener('click', function(e) {
         e.preventDefault();
         videoModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
+        
+        // Particle effect
         createParticles(e, this);
         
+        // Auto-play video jika ada
         const video = videoModal.querySelector('video');
         if (video) {
             video.play().catch(err => {
@@ -114,6 +123,7 @@ function setupVideoModal() {
         }
     });
     
+    // Open system link
     if (systemBtn) {
         systemBtn.addEventListener('click', function(e) {
             createParticles(e, this);
@@ -123,14 +133,17 @@ function setupVideoModal() {
         });
     }
     
+    // Close modal
     closeModal.addEventListener('click', closeVideoModal);
     
+    // Close modal when clicking outside
     window.addEventListener('click', function(e) {
         if (e.target === videoModal) {
             closeVideoModal();
         }
     });
     
+    // Close with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && videoModal.style.display === 'block') {
             closeVideoModal();
@@ -139,13 +152,15 @@ function setupVideoModal() {
 }
 
 // =========================================
-// PDF MODAL FUNCTIONS
+// PDF MODAL FUNCTIONS (TAMBAHAN)
 // =========================================
 
+// Function untuk buka PDF modal
 function openPDFModal(type, event) {
     const modal = document.getElementById(`pdfModal${type.charAt(0).toUpperCase() + type.slice(1)}`);
     const viewer = document.getElementById(`pdfViewer${type.charAt(0).toUpperCase() + type.slice(1)}`);
     
+    // Set PDF source
     if (type === 'pelajar') {
         viewer.src = 'Manual Pengguna Pelajar.pdf';
     } else {
@@ -155,58 +170,40 @@ function openPDFModal(type, event) {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
+    // Particle effect
     if (event) {
         createParticles(event, event.target);
     }
 }
 
+// Function untuk tutup PDF modal
 function closePDFModal(type) {
     const modal = document.getElementById(`pdfModal${type.charAt(0).toUpperCase() + type.slice(1)}`);
     const viewer = document.getElementById(`pdfViewer${type.charAt(0).toUpperCase() + type.slice(1)}`);
     
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
-    viewer.src = '';
+    viewer.src = ''; // Clear source
 }
 
-function printPDF(type) {
-    const url = type === 'pelajar' ? 'Manual Pengguna Pelajar.pdf' : 'Manual Pengguna Pensyarah.pdf';
-    const printWindow = window.open(url, '_blank');
-    printWindow.onload = function() {
-        printWindow.print();
-    };
-}
-
-function setupPDFModals() {
-    const buttonGroup = document.querySelector('.button-group');
+// Function untuk setup button PDF
+function setupPDFButtons() {
+    const pdfPelajarBtn = document.getElementById('pdfPelajarBtn');
+    const pdfPensyarahBtn = document.getElementById('pdfPensyarahBtn');
     
-    // Remove existing PDF buttons if any
-    const existingPelajar = document.getElementById('pdfPelajarBtn');
-    const existingPensyarah = document.getElementById('pdfPensyarahBtn');
-    if (existingPelajar) existingPelajar.remove();
-    if (existingPensyarah) existingPensyarah.remove();
+    if (pdfPelajarBtn) {
+        pdfPelajarBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openPDFModal('pelajar', e);
+        });
+    }
     
-    // Create Pelajar PDF button
-    const pdfPelajarBtn = document.createElement('button');
-    pdfPelajarBtn.className = 'long-btn';
-    pdfPelajarBtn.id = 'pdfPelajarBtn';
-    pdfPelajarBtn.innerHTML = '📘 Manual Pengguna Pelajar';
-    pdfPelajarBtn.addEventListener('click', function(e) {
-        openPDFModal('pelajar', e);
-    });
-    
-    // Create Pensyarah PDF button
-    const pdfPensyarahBtn = document.createElement('button');
-    pdfPensyarahBtn.className = 'long-btn';
-    pdfPensyarahBtn.id = 'pdfPensyarahBtn';
-    pdfPensyarahBtn.innerHTML = '📙 Manual Pengguna Pensyarah';
-    pdfPensyarahBtn.addEventListener('click', function(e) {
-        openPDFModal('pensyarah', e);
-    });
-    
-    // Add buttons to group
-    buttonGroup.appendChild(pdfPelajarBtn);
-    buttonGroup.appendChild(pdfPensyarahBtn);
+    if (pdfPensyarahBtn) {
+        pdfPensyarahBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openPDFModal('pensyarah', e);
+        });
+    }
 }
 
 // =========================================
@@ -241,8 +238,6 @@ function handleSwipe() {
 
 // Particle Effect
 function createParticles(e, button) {
-    if (!button) return;
-    
     const rect = button.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -323,8 +318,6 @@ function animateParticle(particle) {
 // Typing Effect
 function typingEffect() {
     const title = document.querySelector('.main-title');
-    if (!title) return;
-    
     const originalText = title.textContent;
     title.textContent = '';
     
@@ -360,18 +353,23 @@ function setupMobileNavigation() {
     
     if (!hamburgerBtn) return;
     
+    // Toggle menu when hamburger clicked
     hamburgerBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         navMenu.classList.toggle('show');
         hamburgerBtn.classList.toggle('active');
+        
+        // Particle effect for fun
         createParticles(e, this);
     });
     
+    // Close menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navMenu.classList.remove('show');
             hamburgerBtn.classList.remove('active');
             
+            // Smooth scroll to section
             const targetId = this.getAttribute('href');
             if (targetId.startsWith('#')) {
                 const targetSection = document.querySelector(targetId);
@@ -385,6 +383,7 @@ function setupMobileNavigation() {
         });
     });
     
+    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
             navMenu.classList.remove('show');
@@ -392,6 +391,7 @@ function setupMobileNavigation() {
         }
     });
     
+    // Close menu on escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             navMenu.classList.remove('show');
@@ -399,6 +399,7 @@ function setupMobileNavigation() {
         }
     });
     
+    // Close menu on scroll (optional)
     window.addEventListener('scroll', function() {
         if (window.innerWidth <= 768) {
             navMenu.classList.remove('show');
@@ -406,13 +407,17 @@ function setupMobileNavigation() {
         }
     });
     
+    // Add touch/swipe to close menu (mobile only)
     let touchStartX = 0;
+    let touchEndX = 0;
+    
     navMenu.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].clientX;
     });
     
     navMenu.addEventListener('touchend', function(e) {
-        const touchEndX = e.changedTouches[0].clientX;
+        touchEndX = e.changedTouches[0].clientX;
+        // Swipe right to close
         if (touchEndX - touchStartX > 100) {
             navMenu.classList.remove('show');
             hamburgerBtn.classList.remove('active');
@@ -420,20 +425,19 @@ function setupMobileNavigation() {
     });
 }
 
-// Active Section Highlight
+// Highlight active section in nav
 function setupActiveSection() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
     
     window.addEventListener('scroll', function() {
         let current = '';
-        const scrollPosition = window.scrollY;
         
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
             
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            if (scrollY >= (sectionTop - 150)) {
                 current = section.getAttribute('id');
             }
         });
@@ -454,27 +458,26 @@ function setupActiveSection() {
 window.addEventListener('load', function() {
     console.log('🚀 E-KokuPro System Ready!');
     
-    // Load first image
+    // Load gambar pertama
     kemaskiniGambar();
     
-    // Setup all functions
+    // Setup semua fungsi
     setupVideoModal();
-    setupPDFModals();
+    setupPDFButtons();  // ← TAMBAHAN UNTUK PDF
     setupMobileNavigation();
     setupActiveSection();
     typingEffect();
     createFloatingParticles();
     
-    // Auto slide every 8 seconds
+    // Auto slide setiap 8 saat
     setInterval(() => {
         document.getElementById('next').click();
     }, 8000);
     
-    console.log('🎮 Features Available:');
+    console.log('🎮 Keyboard Shortcuts:');
     console.log('   ← → : Navigate slider');
-    console.log('   Escape : Close modals');
-    console.log('   📘📙 : PDF Manuals');
+    console.log('   Escape : Close video/pdf modal');
     console.log('   Touch/Swipe : Mobile navigation');
 });
 
-console.log('✨ Sistem siap! Jangan lupa upload PDF manual pengguna ke folder yang sama.');
+console.log('✨ Sistem siap! Klik button untuk video/pdf.');
