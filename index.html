@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projek Akhir Tahun</title>
+    <title>Projek Akhir Tahun - E-KokuPro KVSP1</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,25 +11,26 @@
     <header>
         <div class="logo">Projek Akhir Tahun</div>
         <!-- Hamburger Button untuk Mobile -->
-    <button class="hamburger" id="hamburgerBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    
-    <nav>
-        <ul id="navMenu">
-            <li><a href="#team" class="nav-link">Team</a></li>
-            <li><a href="#ui-sistem" class="nav-link">Gambar UI Sistem</a></li>
-            <li><a href="#projek" class="nav-link">Gambar Projek</a></li>
-            <li><a href="#lain" class="nav-link">Lain-Lain</a></li>
-        </ul>
-    </nav>
-</header>
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav>
+            <ul id="navMenu">
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#ui-sistem" class="nav-link">Gambar UI Sistem</a></li>
+                <li><a href="#projek" class="nav-link">Gambar Projek</a></li>
+                <li><a href="#lain" class="nav-link">Lain-Lain</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
         <h1 class="main-title">Sistem Digital Aktiviti E-KokuPro KVSP1</h1>
 
+        <!-- TEAM SECTION -->
         <section id="team" class="container visible">
             <h2>TEAM</h2>
             <div class="team-wrapper">
@@ -62,6 +63,7 @@
 
         <hr>
 
+        <!-- UI SLIDER SECTION -->
         <section id="ui-sistem" class="container visible">
             <h2>Gambar UI Sistem</h2>
             <div class="slider-container">
@@ -75,45 +77,45 @@
 
         <hr>
 
+        <!-- PROJECT GALLERY SECTION -->
         <section id="projek" class="container visible">
-            <h2>Gambar Semasa Projek digunakan</h2>
+            <h2>Gambar Semasa Projek Digunakan</h2>
             <div class="gallery-grid">
                 <div class="rect-box">
-                    <img src="images/projek1.jpg" class="img-fit">
+                    <img src="images/projek1.jpg" class="img-fit" alt="Projek 1">
                 </div>
                 <div class="rect-box">
-                    <img src="images/projek2.jpg" class="img-fit">
+                    <img src="images/projek2.jpg" class="img-fit" alt="Projek 2">
                 </div>
                 <div class="rect-box">
-                    <img src="images/projek3.jpg" class="img-fit">
+                    <img src="images/projek3.jpg" class="img-fit" alt="Projek 3">
                 </div>
                 <div class="rect-box">
-                    <img src="images/projek4.jpg" class="img-fit">
+                    <img src="images/projek4.jpg" class="img-fit" alt="Projek 4">
                 </div>
             </div>
         </section>
 
         <hr>
 
+        <!-- BUTTONS SECTION -->
         <section id="lain" class="container visible">
             <h2>Lain - Lain</h2>
             <div class="button-group">
-                <button class="long-btn" id="systemBtn">Sistem E-KokuPro</button>
-                <button class="long-btn" id="videoBtn">🎬 Video Semasa Sistem Digunakan</button>
-                <button class="long-btn" id="videoBtn">Manual Pengguna Pelajar</button>
-                <button class="long-btn" id="videoBtn">Manual Pengguna Pensyarah</button>
+                <button class="long-btn" id="systemBtn">🌐 Sistem E-KokuPro</button>
+                <button class="long-btn" id="videoBtn">🎬 Video Demo Sistem</button>
+                <!-- PDF BUTTONS akan auto generate oleh JavaScript -->
             </div>
         </section>
     </main>
 
-    <!-- VIDEO MODAL (POPUP) -->
+    <!-- VIDEO MODAL -->
     <div id="videoModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
             <h3>🎥 Demo Sistem E-KokuPro</h3>
             
             <div class="video-container">
-                <!-- VIDEO DRIVE LINK TELAH DIGANTI -->
                 <iframe 
                     src="https://drive.google.com/file/d/1QifoN7YPLOiTOzmQ-qAFpwKlr9thqKqB/preview" 
                     allow="autoplay; fullscreen" 
@@ -127,10 +129,54 @@
         </div>
     </div>
 
-    
+    <!-- PDF MODAL PELAJAR -->
+    <div id="pdfModalPelajar" class="modal">
+        <div class="pdf-modal-content">
+            <span class="close-modal" onclick="closePDFModal('pelajar')">&times;</span>
+            <h3>📘 Manual Pengguna Pelajar</h3>
+            
+            <div class="pdf-container">
+                <iframe id="pdfViewerPelajar" src=""></iframe>
+            </div>
+            
+            <div class="pdf-buttons">
+                <a href="Manual Pengguna Pelajar.pdf" download class="pdf-btn download">
+                    ⬇️ Muat Turun PDF
+                </a>
+                <button class="pdf-btn" onclick="window.open('Manual Pengguna Pelajar.pdf', '_blank')">
+                    📄 Buka在新 Tab
+                </button>
+                <button class="pdf-btn" onclick="printPDF('pelajar')">
+                    🖨️ Cetak
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF MODAL PENSYARAH -->
+    <div id="pdfModalPensyarah" class="modal">
+        <div class="pdf-modal-content">
+            <span class="close-modal" onclick="closePDFModal('pensyarah')">&times;</span>
+            <h3>📙 Manual Pengguna Pensyarah</h3>
+            
+            <div class="pdf-container">
+                <iframe id="pdfViewerPensyarah" src=""></iframe>
+            </div>
+            
+            <div class="pdf-buttons">
+                <a href="Manual Pengguna Pensyarah.pdf" download class="pdf-btn download">
+                    ⬇️ Muat Turun PDF
+                </a>
+                <button class="pdf-btn" onclick="window.open('Manual Pengguna Pensyarah.pdf', '_blank')">
+                    📄 Buka在新 Tab
+                </button>
+                <button class="pdf-btn" onclick="printPDF('pensyarah')">
+                    🖨️ Cetak
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
-
 </html>
-
